@@ -1,0 +1,964 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#113F67">
+    <title>Health Tracker</title>
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkhlYWx0aCBUcmFja2VyIiwKICAic2hvcnRfbmFtZSI6ICJIZWFsdGgiLAogICJzdGFydF91cmwiOiAiLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIsCiAgInRoZW1lX2NvbG9yIjogIiM0RjQ2RTUiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnJTNFJTNDcmVjdCBmaWxsPSclMjM0RjQ2RTUnIHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnLyUzRSUzQ3RleHQgeT0nLjllbScgZm9udC1zaXplPSc5MCcgZmlsbD0nJTIzZmZmJyUzRSslMkIlM0MvdGV4dCUzRSUzQy9zdmclM0UiLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #F3F4F6;
+            padding: 0;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #113F67 0%, #34699A 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #113F67;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1F2937;
+        }
+
+        .quick-log {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quick-btn {
+            padding: 15px;
+            background: #FDF5AA;
+            border: 2px solid #58A0C8;
+            border-radius: 10px;
+            color: #113F67;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-btn:active {
+            transform: scale(0.95);
+            background: #58A0C8;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #58A0C8;
+        }
+
+        .severity-scale {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .severity-btn {
+            flex: 1;
+            padding: 12px 0;
+            background: #F3F4F6;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .severity-btn.selected {
+            background: #58A0C8;
+            color: white;
+            border-color: #58A0C8;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: #34699A;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+            background: #113F67;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 16px;
+            background: white;
+            color: #34699A;
+            border: 2px solid #34699A;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        .multi-symptom {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .symptom-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 15px;
+            background: #F9FAFB;
+            border-radius: 8px;
+        }
+
+        .symptom-row input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .symptom-row label {
+            flex: 1;
+            margin: 0;
+            cursor: pointer;
+            min-width: 100px;
+        }
+
+        .severity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .symptom-row input[type="range"] {
+            width: 120px;
+            height: 6px;
+            border-radius: 5px;
+            background: #E5E7EB;
+            outline: none;
+            padding: 0;
+            border: none;
+        }
+
+        .symptom-row input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #58A0C8;
+            cursor: pointer;
+        }
+
+        .symptom-row input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #58A0C8;
+            cursor: pointer;
+            border: none;
+        }
+
+        .symptom-row input[type="number"] {
+            width: 50px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #10B981;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-weight: 500;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .recent-entries {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .recent-entry {
+            padding: 10px;
+            background: #F9FAFB;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chart-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: #F9FAFB;
+            border-radius: 10px;
+            min-height: 300px;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #9CA3AF;
+            padding: 40px;
+        }
+
+        .person-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .person-btn {
+            flex: 1;
+            padding: 12px;
+            background: #F3F4F6;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .person-btn.selected {
+            background: #58A0C8;
+            color: white;
+            border-color: #58A0C8;
+        }
+
+        .add-symptom-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .add-symptom-input input {
+            flex: 1;
+        }
+
+        .add-symptom-input button {
+            padding: 12px 20px;
+            background: #10B981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .lab-entry {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .lab-entry input {
+            flex: 1;
+        }
+
+        .chart-canvas {
+            width: 100%;
+            height: 300px;
+        }
+
+        .test-selector {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Health Tracker</h1>
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('symptoms')">Symptoms</button>
+            <button class="tab-btn" onclick="switchTab('labs')">Lab Results</button>
+            <button class="tab-btn" onclick="switchTab('charts')">Charts</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- SYMPTOMS TAB -->
+        <div id="symptoms-tab" class="tab-content active">
+            <div class="card">
+                <div class="card-title">Who?</div>
+                <div class="person-toggle">
+                    <button class="person-btn" onclick="selectPerson('lmr')">LMR</button>
+                    <button class="person-btn selected" onclick="selectPerson('jpr')">JPR</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Quick Log</div>
+                <div class="quick-log" id="quick-log-buttons">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Log Symptoms</div>
+                
+                <div class="form-group">
+                    <label>Date & Time</label>
+                    <input type="datetime-local" id="symptom-datetime">
+                </div>
+
+                <div class="form-group">
+                    <label>Select Symptoms (can select multiple)</label>
+                    <div class="multi-symptom" id="symptom-list">
+                        <!-- Populated dynamically -->
+                    </div>
+                    <div class="add-symptom-input">
+                        <input type="text" id="new-symptom-input" placeholder="Add new symptom...">
+                        <button onclick="addNewSymptom()">Add</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Notes (optional)</label>
+                    <textarea id="symptom-notes" rows="3" placeholder="Any additional context..."></textarea>
+                </div>
+
+                <button class="btn-primary" onclick="logSymptoms()">Log Entry</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Recent Entries</div>
+                <div class="recent-entries" id="recent-entries">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- LAB RESULTS TAB -->
+        <div id="labs-tab" class="tab-content">
+            <div class="card">
+                <div class="card-title">Who?</div>
+                <div class="person-toggle">
+                    <button class="person-btn" onclick="selectLabPerson('lmr')">LMR</button>
+                    <button class="person-btn selected" onclick="selectLabPerson('jpr')">JPR</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Log Lab Results</div>
+                
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="lab-date">
+                </div>
+
+                <div class="form-group">
+                    <label>Test Name</label>
+                    <input type="text" id="lab-test-name" placeholder="e.g., Hemoglobin A1C, TSH, Vitamin D">
+                </div>
+
+                <div class="form-group">
+                    <label>Result Value</label>
+                    <input type="text" id="lab-result-value" placeholder="e.g., 5.7, 125, Normal">
+                </div>
+
+                <div class="form-group">
+                    <label>Units (optional)</label>
+                    <input type="text" id="lab-units" placeholder="e.g., %, mg/dL, ng/mL">
+                </div>
+
+                <div class="form-group">
+                    <label>Notes (optional)</label>
+                    <textarea id="lab-notes" rows="3" placeholder="Reference range, doctor comments, etc."></textarea>
+                </div>
+
+                <button class="btn-primary" onclick="logLabResult()">Log Lab Result</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Recent Lab Results</div>
+                <div class="recent-entries" id="recent-labs">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- CHARTS TAB -->
+        <div id="charts-tab" class="tab-content">
+            <div class="card">
+                <div class="card-title">Lab Results Over Time</div>
+                
+                <div class="form-group test-selector">
+                    <label>Select Test to Chart</label>
+                    <select id="chart-test-select" onchange="renderLabChart()">
+                        <option value="">-- Select a test --</option>
+                    </select>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="lab-chart" class="chart-canvas"></canvas>
+                    <div id="no-chart-data" class="no-data">Select a test to view chart</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        // Configuration - UPDATE THIS with your Google Apps Script URL
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyqhD3_lY87x__iSkZsC3xm-ribqHXwbmPS7uYK7G85qB8chT7Pvftmyjj14Jb02JOcTw/exec';
+
+        // State management
+        let symptoms = ['Headache', 'Fatigue', 'Nausea', 'Dizziness', 'Pain'];
+        let currentPerson = 'jpr';
+        let currentLabPerson = 'jpr';
+        let recentEntries = [];
+        let recentLabs = [];
+        let labChart = null;
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            loadFromStorage();
+            initializeDateTime();
+            renderSymptoms();
+            renderQuickLog();
+            renderRecentEntries();
+            renderRecentLabs();
+            populateTestSelector();
+            
+            // Set lab date to today
+            document.getElementById('lab-date').valueAsDate = new Date();
+        });
+
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:application/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZXZlbnQpIHsKICBzZWxmLnNraXBXYWl0aW5nKCk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdhY3RpdmF0ZScsIGZ1bmN0aW9uKGV2ZW50KSB7CiAgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOwp9KTs=');
+        }
+
+        function loadFromStorage() {
+            const stored = localStorage.getItem('healthTrackerData');
+            if (stored) {
+                const data = JSON.parse(stored);
+                symptoms = data.symptoms || symptoms;
+                recentEntries = data.recentEntries || [];
+                recentLabs = data.recentLabs || [];
+            }
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('healthTrackerData', JSON.stringify({
+                symptoms,
+                recentEntries,
+                recentLabs
+            }));
+        }
+
+        function initializeDateTime() {
+            const now = new Date();
+            const offset = now.getTimezoneOffset() * 60000;
+            const localTime = new Date(now - offset).toISOString().slice(0, 16);
+            document.getElementById('symptom-datetime').value = localTime;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+
+        function selectPerson(person) {
+            currentPerson = person;
+            document.querySelectorAll('#symptoms-tab .person-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        function selectLabPerson(person) {
+            currentLabPerson = person;
+            document.querySelectorAll('#labs-tab .person-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        function renderSymptoms() {
+            const container = document.getElementById('symptom-list');
+            container.innerHTML = symptoms.map((symptom, index) => `
+                <div class="symptom-row">
+                    <input type="checkbox" id="symptom-${index}" data-symptom="${symptom}">
+                    <label for="symptom-${index}">${symptom}</label>
+                    <div class="severity-controls">
+                        <input type="range" min="1" max="10" value="5" id="slider-${index}" disabled>
+                        <input type="number" min="1" max="10" placeholder="1-10" id="severity-${index}" disabled>
+                    </div>
+                </div>
+            `).join('');
+
+            // Enable severity controls when checkbox is checked and sync slider/number
+            symptoms.forEach((_, index) => {
+                const checkbox = document.getElementById(`symptom-${index}`);
+                const slider = document.getElementById(`slider-${index}`);
+                const numberInput = document.getElementById(`severity-${index}`);
+                
+                checkbox.addEventListener('change', (e) => {
+                    const isChecked = e.target.checked;
+                    slider.disabled = !isChecked;
+                    numberInput.disabled = !isChecked;
+                    if (isChecked) {
+                        numberInput.value = slider.value;
+                    }
+                });
+
+                // Sync slider to number input
+                slider.addEventListener('input', (e) => {
+                    numberInput.value = e.target.value;
+                });
+
+                // Sync number input to slider
+                numberInput.addEventListener('input', (e) => {
+                    const val = parseInt(e.target.value);
+                    if (val >= 1 && val <= 10) {
+                        slider.value = val;
+                    }
+                });
+            });
+        }
+
+        function renderQuickLog() {
+            const container = document.getElementById('quick-log-buttons');
+            
+            // Count frequency of each symptom
+            const symptomFrequency = {};
+            symptoms.forEach(s => symptomFrequency[s] = { count: 0, lastUsed: null });
+            
+            recentEntries.forEach(entry => {
+                entry.symptoms.forEach(s => {
+                    if (symptomFrequency[s.name]) {
+                        symptomFrequency[s.name].count++;
+                        const entryDate = new Date(entry.datetime);
+                        if (!symptomFrequency[s.name].lastUsed || entryDate > symptomFrequency[s.name].lastUsed) {
+                            symptomFrequency[s.name].lastUsed = entryDate;
+                        }
+                    }
+                });
+            });
+            
+            // Sort by frequency (desc), then by most recent, then alphabetically
+            const sortedSymptoms = symptoms.slice().sort((a, b) => {
+                const freqA = symptomFrequency[a].count;
+                const freqB = symptomFrequency[b].count;
+                
+                if (freqA !== freqB) {
+                    return freqB - freqA; // Higher frequency first
+                }
+                
+                // If tied, check last used
+                const lastA = symptomFrequency[a].lastUsed;
+                const lastB = symptomFrequency[b].lastUsed;
+                
+                if (lastA && lastB) {
+                    if (lastA.getTime() !== lastB.getTime()) {
+                        return lastB - lastA; // More recent first
+                    }
+                }
+                
+                // If still tied (or both null), alphabetical
+                return a.localeCompare(b);
+            });
+            
+            const topSymptoms = sortedSymptoms.slice(0, 4);
+            container.innerHTML = topSymptoms.map(symptom => 
+                `<button class="quick-btn" onclick="quickLog('${symptom}')">${symptom}</button>`
+            ).join('');
+        }
+
+        function quickLog(symptom) {
+            // Create a simple modal-like prompt with slider
+            const severity = prompt(`Rate ${symptom} severity (1-10):`, '5');
+            if (severity && severity >= 1 && severity <= 10) {
+                const entry = {
+                    person: currentPerson,
+                    datetime: new Date().toISOString(),
+                    symptoms: [{name: symptom, severity: parseInt(severity)}],
+                    notes: 'Quick log'
+                };
+                submitEntry(entry);
+            }
+        }
+
+        function addNewSymptom() {
+            const input = document.getElementById('new-symptom-input');
+            const newSymptom = input.value.trim();
+            if (newSymptom && !symptoms.includes(newSymptom)) {
+                symptoms.push(newSymptom);
+                input.value = '';
+                renderSymptoms();
+                renderQuickLog();
+                saveToStorage();
+                showToast('New symptom added!');
+            }
+        }
+
+        function logSymptoms() {
+            const datetime = document.getElementById('symptom-datetime').value;
+            const notes = document.getElementById('symptom-notes').value;
+            
+            const selectedSymptoms = [];
+            symptoms.forEach((symptom, index) => {
+                const checkbox = document.getElementById(`symptom-${index}`);
+                const severityInput = document.getElementById(`severity-${index}`);
+                if (checkbox.checked) {
+                    const severity = parseInt(severityInput.value);
+                    if (severity >= 1 && severity <= 10) {
+                        selectedSymptoms.push({name: symptom, severity});
+                    }
+                }
+            });
+
+            if (selectedSymptoms.length === 0) {
+                alert('Please select at least one symptom with a severity rating.');
+                return;
+            }
+
+            const entry = {
+                person: currentPerson,
+                datetime: new Date(datetime).toISOString(),
+                symptoms: selectedSymptoms,
+                notes: notes
+            };
+
+            submitEntry(entry);
+        }
+
+        function submitEntry(entry) {
+            // Add to recent entries
+            recentEntries.unshift(entry);
+            if (recentEntries.length > 10) recentEntries = recentEntries.slice(0, 10);
+            saveToStorage();
+            renderRecentEntries();
+
+            // Send to Google Sheets
+            sendToGoogleSheets('symptoms', entry);
+
+            // Reset form
+            document.querySelectorAll('#symptom-list input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.querySelectorAll('#symptom-list input[type="number"]').forEach(inp => {
+                inp.value = '';
+                inp.disabled = true;
+            });
+            document.getElementById('symptom-notes').value = '';
+            initializeDateTime();
+
+            showToast('✓ Symptom logged successfully!');
+        }
+
+        function logLabResult() {
+            const date = document.getElementById('lab-date').value;
+            const testName = document.getElementById('lab-test-name').value.trim();
+            const resultValue = document.getElementById('lab-result-value').value.trim();
+            const units = document.getElementById('lab-units').value.trim();
+            const notes = document.getElementById('lab-notes').value.trim();
+
+            if (!date || !testName || !resultValue) {
+                alert('Please fill in date, test name, and result value.');
+                return;
+            }
+
+            const entry = {
+                person: currentLabPerson,
+                date: date,
+                testName: testName,
+                resultValue: resultValue,
+                units: units,
+                notes: notes
+            };
+
+            // Add to recent labs
+            recentLabs.unshift(entry);
+            if (recentLabs.length > 10) recentLabs = recentLabs.slice(0, 10);
+            saveToStorage();
+            renderRecentLabs();
+            populateTestSelector();
+
+            // Send to Google Sheets
+            sendToGoogleSheets('labs', entry);
+
+            // Reset form
+            document.getElementById('lab-test-name').value = '';
+            document.getElementById('lab-result-value').value = '';
+            document.getElementById('lab-units').value = '';
+            document.getElementById('lab-notes').value = '';
+
+            showToast('✓ Lab result logged successfully!');
+        }
+
+        function renderRecentEntries() {
+            const container = document.getElementById('recent-entries');
+            if (recentEntries.length === 0) {
+                container.innerHTML = '<div class="no-data">No recent entries</div>';
+                return;
+            }
+
+            container.innerHTML = recentEntries.slice(0, 5).map(entry => {
+                const date = new Date(entry.datetime);
+                const symptomsText = entry.symptoms.map(s => `${s.name} (${s.severity})`).join(', ');
+                const personLabel = entry.person === 'jpr' ? 'JPR' : 'LMR';
+                return `
+                    <div class="recent-entry">
+                        <div>
+                            <strong>${personLabel}</strong><br>
+                            ${symptomsText}<br>
+                            <small>${date.toLocaleString()}</small>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderRecentLabs() {
+            const container = document.getElementById('recent-labs');
+            if (recentLabs.length === 0) {
+                container.innerHTML = '<div class="no-data">No recent lab results</div>';
+                return;
+            }
+
+            container.innerHTML = recentLabs.slice(0, 5).map(entry => {
+                const personLabel = entry.person === 'jpr' ? 'JPR' : 'LMR';
+                return `
+                    <div class="recent-entry">
+                        <div>
+                            <strong>${personLabel}</strong><br>
+                            ${entry.testName}: ${entry.resultValue}${entry.units ? ' ' + entry.units : ''}<br>
+                            <small>${entry.date}</small>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function populateTestSelector() {
+            const select = document.getElementById('chart-test-select');
+            const uniqueTests = [...new Set(recentLabs.map(lab => lab.testName))];
+            
+            select.innerHTML = '<option value="">-- Select a test --</option>' +
+                uniqueTests.map(test => `<option value="${test}">${test}</option>`).join('');
+        }
+
+        function renderLabChart() {
+            const testName = document.getElementById('chart-test-select').value;
+            const canvas = document.getElementById('lab-chart');
+            const noDataDiv = document.getElementById('no-chart-data');
+
+            if (!testName) {
+                noDataDiv.style.display = 'block';
+                canvas.style.display = 'none';
+                return;
+            }
+
+            // Filter and sort data for selected test
+            const testData = recentLabs
+                .filter(lab => lab.testName === testName)
+                .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            if (testData.length === 0) {
+                noDataDiv.textContent = 'No data for this test';
+                noDataDiv.style.display = 'block';
+                canvas.style.display = 'none';
+                return;
+            }
+
+            noDataDiv.style.display = 'none';
+            canvas.style.display = 'block';
+
+            // Parse numeric values
+            const labels = testData.map(d => d.date);
+            const values = testData.map(d => {
+                const val = parseFloat(d.resultValue);
+                return isNaN(val) ? null : val;
+            });
+
+            // Destroy existing chart
+            if (labChart) {
+                labChart.destroy();
+            }
+
+            // Create new chart
+            const ctx = canvas.getContext('2d');
+            labChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: testName,
+                        data: values,
+                        borderColor: '#58A0C8',
+                        backgroundColor: 'rgba(88, 160, 200, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                    }
+                }
+            });
+        }
+
+        async function sendToGoogleSheets(type, data) {
+            if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+                console.log('Google Sheets not configured. Data saved locally:', data);
+                return;
+            }
+
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        type: type,
+                        data: data
+                    })
+                });
+                console.log('Data sent to Google Sheets');
+            } catch (error) {
+                console.error('Error sending to Google Sheets:', error);
+                showToast('⚠ Saved locally only (check connection)');
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
