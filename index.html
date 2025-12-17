@@ -377,6 +377,281 @@
         .test-selector {
             margin-bottom: 20px;
         }
+
+        .med-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #58A0C8;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .med-card.inactive {
+            opacity: 0.6;
+            border-left-color: #9CA3AF;
+        }
+
+        .med-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .med-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #113F67;
+        }
+
+        .med-person {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 12px;
+            background: #FDF5AA;
+            color: #113F67;
+        }
+
+        .med-info {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 8px;
+        }
+
+        .med-times {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .time-badge {
+            background: #EEF2FF;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #113F67;
+        }
+
+        .med-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .btn-small {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-edit {
+            background: #58A0C8;
+            color: white;
+        }
+
+        .btn-toggle {
+            background: #E5E7EB;
+            color: #374151;
+        }
+
+        .btn-toggle.active {
+            background: #10B981;
+            color: white;
+        }
+
+        .today-schedule {
+            background: #F9FAFB;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #58A0C8;
+        }
+
+        .schedule-item.taken {
+            border-left-color: #10B981;
+            opacity: 0.7;
+        }
+
+        .schedule-item.missed {
+            border-left-color: #EF4444;
+        }
+
+        .schedule-time {
+            font-weight: 600;
+            color: #113F67;
+            font-size: 16px;
+        }
+
+        .schedule-med {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .schedule-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-taken {
+            background: #10B981;
+            color: white;
+        }
+
+        .btn-skip {
+            background: #F59E0B;
+            color: white;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #E5E7EB;
+            transition: .3s;
+            border-radius: 28px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #58A0C8;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #113F67;
+            margin-bottom: 20px;
+        }
+
+        .time-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .time-input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .time-input-group input[type="time"] {
+            flex: 1;
+        }
+
+        .btn-remove {
+            padding: 8px 12px;
+            background: #EF4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-add-time {
+            padding: 10px;
+            background: #10B981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -385,6 +660,7 @@
         <div class="tab-nav">
             <button class="tab-btn active" onclick="switchTab('symptoms')">Symptoms</button>
             <button class="tab-btn" onclick="switchTab('labs')">Lab Results</button>
+            <button class="tab-btn" onclick="switchTab('meds')">Medications</button>
             <button class="tab-btn" onclick="switchTab('charts')">Charts</button>
         </div>
     </div>
@@ -491,6 +767,61 @@
             </div>
         </div>
 
+        <!-- MEDICATIONS TAB -->
+        <div id="meds-tab" class="tab-content">
+            <div class="card">
+                <div class="card-title">Notification Settings</div>
+                <div class="toggle-switch">
+                    <label class="switch">
+                        <input type="checkbox" id="notify-jpr-reminders" checked onchange="saveNotificationSettings()">
+                        <span class="slider"></span>
+                    </label>
+                    <label>Get JPR medication reminders</label>
+                </div>
+                <div class="toggle-switch">
+                    <label class="switch">
+                        <input type="checkbox" id="notify-lmr-reminders" onchange="saveNotificationSettings()">
+                        <span class="slider"></span>
+                    </label>
+                    <label>Get LMR medication reminders</label>
+                </div>
+                <div class="toggle-switch">
+                    <label class="switch">
+                        <input type="checkbox" id="notify-jpr-missed" checked onchange="saveNotificationSettings()">
+                        <span class="slider"></span>
+                    </label>
+                    <label>Alert me if JPR misses medication</label>
+                </div>
+                <div class="toggle-switch">
+                    <label class="switch">
+                        <input type="checkbox" id="notify-lmr-missed" checked onchange="saveNotificationSettings()">
+                        <span class="slider"></span>
+                    </label>
+                    <label>Alert me if LMR misses medication</label>
+                </div>
+                <button class="btn-primary" onclick="requestNotificationPermission()">Enable Notifications</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Today's Schedule</div>
+                <div class="today-schedule" id="today-schedule">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Medications</div>
+                <button class="btn-primary" onclick="showAddMedicationModal()" style="margin-bottom: 20px;">+ Add Medication</button>
+                <div id="medications-list">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="card">
+                <button class="btn-secondary" onclick="exportMedicationLog()">Export Medication Log</button>
+            </div>
+        </div>
+
         <!-- CHARTS TAB -->
         <div id="charts-tab" class="tab-content">
             <div class="card">
@@ -513,18 +844,109 @@
 
     <div class="toast" id="toast"></div>
 
+    <!-- Medication Modal -->
+    <div class="modal" id="med-modal">
+        <div class="modal-content">
+            <div class="modal-title" id="modal-title">Add Medication</div>
+            
+            <div class="form-group">
+                <label>Person</label>
+                <div class="person-toggle">
+                    <button class="person-btn" onclick="selectModalPerson('lmr')">LMR</button>
+                    <button class="person-btn selected" onclick="selectModalPerson('jpr')">JPR</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Medication Name</label>
+                <input type="text" id="med-name" placeholder="e.g., Lisinopril">
+            </div>
+
+            <div class="form-group">
+                <label>Dosage</label>
+                <input type="text" id="med-dosage" placeholder="e.g., 10mg, 2 tablets">
+            </div>
+
+            <div class="form-group">
+                <label>Frequency</label>
+                <input type="text" id="med-frequency" placeholder="e.g., Twice daily, Once daily">
+            </div>
+
+            <div class="form-group">
+                <label>Times</label>
+                <div class="time-inputs" id="time-inputs">
+                    <div class="time-input-group">
+                        <input type="time" class="med-time">
+                    </div>
+                </div>
+                <button class="btn-add-time" onclick="addTimeInput()">+ Add Another Time</button>
+            </div>
+
+            <div class="form-group">
+                <label>Start Date</label>
+                <input type="date" id="med-start-date">
+            </div>
+
+            <div class="form-group">
+                <label>Notes (optional)</label>
+                <textarea id="med-notes" rows="3" placeholder="Special instructions, side effects to watch for, etc."></textarea>
+            </div>
+
+            <button class="btn-primary" onclick="saveMedication()">Save Medication</button>
+            <button class="btn-secondary" onclick="closeMedicationModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Skip Reason Modal -->
+    <div class="modal" id="skip-modal">
+        <div class="modal-content">
+            <div class="modal-title">Why skipping?</div>
+            
+            <div class="form-group">
+                <label>Reason</label>
+                <select id="skip-reason">
+                    <option value="Forgot">Forgot</option>
+                    <option value="Side effects">Side effects</option>
+                    <option value="Ran out">Ran out</option>
+                    <option value="Feeling better">Feeling better</option>
+                    <option value="Doctor advised">Doctor advised</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Additional notes (optional)</label>
+                <textarea id="skip-notes" rows="2"></textarea>
+            </div>
+
+            <button class="btn-primary" onclick="confirmSkip()">Confirm Skip</button>
+            <button class="btn-secondary" onclick="closeSkipModal()">Cancel</button>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
         // Configuration - UPDATE THIS with your Google Apps Script URL
-        const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTzC7KY70Ol4Ts5kE9UXQAuJs5UEPCohuQoy3m4WyLJaBjg9BxmidUMTXD2xI_YPlsbA/exec';
 
         // State management
         let symptoms = ['Headache', 'Fatigue', 'Nausea', 'Dizziness', 'Pain'];
         let currentPerson = 'jpr';
         let currentLabPerson = 'jpr';
+        let currentModalPerson = 'jpr';
         let recentEntries = [];
         let recentLabs = [];
         let labChart = null;
+        let medications = [];
+        let todaySchedule = [];
+        let editingMedId = null;
+        let skipMedId = null;
+        let notificationSettings = {
+            jprReminders: true,
+            lmrReminders: false,
+            jprMissed: true,
+            lmrMissed: true
+        };
 
         // Initialize on load
         window.addEventListener('load', () => {
@@ -535,14 +957,23 @@
             renderRecentEntries();
             renderRecentLabs();
             populateTestSelector();
+            loadNotificationSettings();
+            loadMedications();
             
             // Set lab date to today
             document.getElementById('lab-date').valueAsDate = new Date();
+            document.getElementById('med-start-date').valueAsDate = new Date();
+
+            // Start medication checker
+            startMedicationChecker();
         });
 
         // Register service worker for PWA
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('data:application/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZXZlbnQpIHsKICBzZWxmLnNraXBXYWl0aW5nKCk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdhY3RpdmF0ZScsIGZ1bmN0aW9uKGV2ZW50KSB7CiAgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOwp9KTs=');
+            navigator.serviceWorker.register('data:application/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZXZlbnQpIHsKICBzZWxmLnNraXBXYWl0aW5nKCk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdhY3RpdmF0ZScsIGZ1bmN0aW9uKGV2ZW50KSB7CiAgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOwp9KTs=')
+                .then(reg => {
+                    console.log('Service Worker registered');
+                });
         }
 
         function loadFromStorage() {
@@ -552,6 +983,9 @@
                 symptoms = data.symptoms || symptoms;
                 recentEntries = data.recentEntries || [];
                 recentLabs = data.recentLabs || [];
+                medications = data.medications || [];
+                todaySchedule = data.todaySchedule || [];
+                notificationSettings = data.notificationSettings || notificationSettings;
             }
         }
 
@@ -559,7 +993,10 @@
             localStorage.setItem('healthTrackerData', JSON.stringify({
                 symptoms,
                 recentEntries,
-                recentLabs
+                recentLabs,
+                medications,
+                todaySchedule,
+                notificationSettings
             }));
         }
 
@@ -589,6 +1026,14 @@
         function selectLabPerson(person) {
             currentLabPerson = person;
             document.querySelectorAll('#labs-tab .person-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        function selectModalPerson(person) {
+            currentModalPerson = person;
+            document.querySelectorAll('#med-modal .person-btn').forEach(btn => {
                 btn.classList.remove('selected');
             });
             event.target.classList.add('selected');
@@ -928,7 +1373,7 @@
         }
 
         async function sendToGoogleSheets(type, data) {
-            if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyqhD3_lY87x__iSkZsC3xm-ribqHXwbmPS7uYK7G85qB8chT7Pvftmyjj14Jb02JOcTw/exec') {
+            if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
                 console.log('Google Sheets not configured. Data saved locally:', data);
                 return;
             }
@@ -950,6 +1395,421 @@
                 console.error('Error sending to Google Sheets:', error);
                 showToast('⚠ Saved locally only (check connection)');
             }
+        }
+
+        // Medication Functions
+        async function loadMedications() {
+            // In production, fetch from Google Sheets
+            // For now, use local storage
+            renderMedicationsList();
+            renderTodaySchedule();
+        }
+
+        function showAddMedicationModal() {
+            editingMedId = null;
+            document.getElementById('modal-title').textContent = 'Add Medication';
+            document.getElementById('med-name').value = '';
+            document.getElementById('med-dosage').value = '';
+            document.getElementById('med-frequency').value = '';
+            document.getElementById('med-notes').value = '';
+            document.getElementById('time-inputs').innerHTML = `
+                <div class="time-input-group">
+                    <input type="time" class="med-time">
+                </div>
+            `;
+            document.getElementById('med-modal').classList.add('show');
+        }
+
+        function closeMedicationModal() {
+            document.getElementById('med-modal').classList.remove('show');
+        }
+
+        function addTimeInput() {
+            const container = document.getElementById('time-inputs');
+            const newInput = document.createElement('div');
+            newInput.className = 'time-input-group';
+            newInput.innerHTML = `
+                <input type="time" class="med-time">
+                <button class="btn-remove" onclick="removeTimeInput(event)">×</button>
+            `;
+            container.appendChild(newInput);
+        }
+
+        function removeTimeInput(event) {
+            event.target.parentElement.remove();
+        }
+
+        function saveMedication() {
+            const name = document.getElementById('med-name').value.trim();
+            const dosage = document.getElementById('med-dosage').value.trim();
+            const frequency = document.getElementById('med-frequency').value.trim();
+            const startDate = document.getElementById('med-start-date').value;
+            const notes = document.getElementById('med-notes').value.trim();
+            
+            const times = Array.from(document.querySelectorAll('.med-time'))
+                .map(input => input.value)
+                .filter(time => time);
+
+            if (!name || !dosage || !frequency || times.length === 0) {
+                alert('Please fill in medication name, dosage, frequency, and at least one time.');
+                return;
+            }
+
+            const medication = {
+                id: editingMedId || Date.now().toString(),
+                person: currentModalPerson,
+                name,
+                dosage,
+                frequency,
+                times,
+                startDate,
+                notes,
+                active: true
+            };
+
+            if (editingMedId) {
+                const index = medications.findIndex(m => m.id === editingMedId);
+                medications[index] = medication;
+            } else {
+                medications.push(medication);
+            }
+
+            saveToStorage();
+            sendToGoogleSheets('medication', medication);
+            renderMedicationsList();
+            renderTodaySchedule();
+            closeMedicationModal();
+            showToast('✓ Medication saved!');
+        }
+
+        function editMedication(id) {
+            const med = medications.find(m => m.id === id);
+            if (!med) return;
+
+            editingMedId = id;
+            currentModalPerson = med.person;
+            document.getElementById('modal-title').textContent = 'Edit Medication';
+            document.getElementById('med-name').value = med.name;
+            document.getElementById('med-dosage').value = med.dosage;
+            document.getElementById('med-frequency').value = med.frequency;
+            document.getElementById('med-start-date').value = med.startDate;
+            document.getElementById('med-notes').value = med.notes || '';
+
+            const timeInputs = med.times.map((time, index) => `
+                <div class="time-input-group">
+                    <input type="time" class="med-time" value="${time}">
+                    ${index > 0 ? '<button class="btn-remove" onclick="removeTimeInput(event)">×</button>' : ''}
+                </div>
+            `).join('');
+            document.getElementById('time-inputs').innerHTML = timeInputs;
+
+            document.querySelectorAll('#med-modal .person-btn').forEach(btn => {
+                btn.classList.toggle('selected', btn.textContent === med.person.toUpperCase());
+            });
+
+            document.getElementById('med-modal').classList.add('show');
+        }
+
+        function toggleMedication(id) {
+            const med = medications.find(m => m.id === id);
+            if (med) {
+                med.active = !med.active;
+                saveToStorage();
+                sendToGoogleSheets('medication', med);
+                renderMedicationsList();
+                renderTodaySchedule();
+                showToast(med.active ? '✓ Medication activated' : 'Medication deactivated');
+            }
+        }
+
+        function renderMedicationsList() {
+            const container = document.getElementById('medications-list');
+            if (medications.length === 0) {
+                container.innerHTML = '<div class="no-data">No medications added yet</div>';
+                return;
+            }
+
+            container.innerHTML = medications.map(med => `
+                <div class="med-card ${med.active ? '' : 'inactive'}">
+                    <div class="med-header">
+                        <div>
+                            <div class="med-name">${med.name}</div>
+                            <div class="med-person">${med.person.toUpperCase()}</div>
+                        </div>
+                    </div>
+                    <div class="med-info">${med.dosage} • ${med.frequency}</div>
+                    ${med.notes ? `<div class="med-info">${med.notes}</div>` : ''}
+                    <div class="med-times">
+                        ${med.times.map(time => `<span class="time-badge">${formatTime(time)}</span>`).join('')}
+                    </div>
+                    <div class="med-actions">
+                        <button class="btn-small btn-edit" onclick="editMedication('${med.id}')">Edit</button>
+                        <button class="btn-small btn-toggle ${med.active ? 'active' : ''}" onclick="toggleMedication('${med.id}')">
+                            ${med.active ? 'Active' : 'Inactive'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderTodaySchedule() {
+            const container = document.getElementById('today-schedule');
+            const today = new Date();
+            const schedule = [];
+
+            medications.filter(m => m.active).forEach(med => {
+                med.times.forEach(time => {
+                    const [hours, minutes] = time.split(':');
+                    const scheduleTime = new Date(today);
+                    scheduleTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
+                    const logEntry = todaySchedule.find(s => 
+                        s.medId === med.id && s.time === time && 
+                        new Date(s.date).toDateString() === today.toDateString()
+                    );
+
+                    schedule.push({
+                        medId: med.id,
+                        person: med.person,
+                        name: med.name,
+                        dosage: med.dosage,
+                        time: time,
+                        scheduleTime: scheduleTime,
+                        status: logEntry ? logEntry.status : 'pending'
+                    });
+                });
+            });
+
+            schedule.sort((a, b) => a.scheduleTime - b.scheduleTime);
+
+            if (schedule.length === 0) {
+                container.innerHTML = '<div class="no-data">No medications scheduled for today</div>';
+                return;
+            }
+
+            container.innerHTML = schedule.map(item => {
+                const isPast = item.scheduleTime < new Date();
+                const className = item.status === 'taken' ? 'taken' : (isPast && item.status === 'pending' ? 'missed' : '');
+                
+                return `
+                    <div class="schedule-item ${className}">
+                        <div>
+                            <div class="schedule-time">${formatTime(item.time)}</div>
+                            <div class="schedule-med">${item.name} - ${item.dosage} (${item.person.toUpperCase()})</div>
+                        </div>
+                        ${item.status === 'pending' ? `
+                            <div class="schedule-actions">
+                                <button class="btn-icon btn-taken" onclick="markTaken('${item.medId}', '${item.time}')">✓ Taken</button>
+                                <button class="btn-icon btn-skip" onclick="showSkipModal('${item.medId}', '${item.time}')">Skip</button>
+                            </div>
+                        ` : `
+                            <div style="font-size: 12px; color: #10B981; font-weight: 600;">
+                                ${item.status === 'taken' ? '✓ Taken' : 'Skipped'}
+                            </div>
+                        `}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function markTaken(medId, time) {
+            const entry = {
+                medId,
+                time,
+                date: new Date().toISOString(),
+                actualTime: new Date().toTimeString().slice(0, 5),
+                status: 'taken',
+                reason: ''
+            };
+
+            todaySchedule.push(entry);
+            saveToStorage();
+            sendToGoogleSheets('med_log', entry);
+            renderTodaySchedule();
+            showToast('✓ Marked as taken!');
+        }
+
+        function showSkipModal(medId, time) {
+            skipMedId = { medId, time };
+            document.getElementById('skip-reason').value = 'Forgot';
+            document.getElementById('skip-notes').value = '';
+            document.getElementById('skip-modal').classList.add('show');
+        }
+
+        function closeSkipModal() {
+            document.getElementById('skip-modal').classList.remove('show');
+            skipMedId = null;
+        }
+
+        function confirmSkip() {
+            const reason = document.getElementById('skip-reason').value;
+            const notes = document.getElementById('skip-notes').value.trim();
+
+            const entry = {
+                medId: skipMedId.medId,
+                time: skipMedId.time,
+                date: new Date().toISOString(),
+                actualTime: '',
+                status: 'skipped',
+                reason: notes ? `${reason}: ${notes}` : reason
+            };
+
+            todaySchedule.push(entry);
+            saveToStorage();
+            sendToGoogleSheets('med_log', entry);
+            renderTodaySchedule();
+            closeSkipModal();
+            showToast('Medication skipped');
+        }
+
+        function formatTime(time24) {
+            const [hours, minutes] = time24.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const hour12 = hour % 12 || 12;
+            return `${hour12}:${minutes} ${ampm}`;
+        }
+
+        // Notification Functions
+        function requestNotificationPermission() {
+            if (!('Notification' in window)) {
+                alert('This browser does not support notifications');
+                return;
+            }
+
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    showToast('✓ Notifications enabled!');
+                    new Notification('Health Tracker', {
+                        body: 'You will now receive medication reminders',
+                        icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23113F67" width="100%" height="100%"/><text y=".9em" font-size="90" fill="%23fff">+</text></svg>'
+                    });
+                } else {
+                    alert('Please enable notifications in your browser settings');
+                }
+            });
+        }
+
+        function loadNotificationSettings() {
+            document.getElementById('notify-jpr-reminders').checked = notificationSettings.jprReminders;
+            document.getElementById('notify-lmr-reminders').checked = notificationSettings.lmrReminders;
+            document.getElementById('notify-jpr-missed').checked = notificationSettings.jprMissed;
+            document.getElementById('notify-lmr-missed').checked = notificationSettings.lmrMissed;
+        }
+
+        function saveNotificationSettings() {
+            notificationSettings = {
+                jprReminders: document.getElementById('notify-jpr-reminders').checked,
+                lmrReminders: document.getElementById('notify-lmr-reminders').checked,
+                jprMissed: document.getElementById('notify-jpr-missed').checked,
+                lmrMissed: document.getElementById('notify-lmr-missed').checked
+            };
+            saveToStorage();
+            showToast('✓ Notification settings saved');
+        }
+
+        let medicationCheckInterval = null;
+        let lastCheckTime = null;
+
+        function startMedicationChecker() {
+            // Check immediately
+            checkMedications();
+            
+            // Smart interval: check every 10 minutes normally
+            medicationCheckInterval = setInterval(() => {
+                checkMedications();
+            }, 10 * 60 * 1000); // 10 minutes
+        }
+
+        function checkMedications() {
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            
+            medications.filter(m => m.active).forEach(med => {
+                med.times.forEach(time => {
+                    const [hours, minutes] = time.split(':');
+                    const medTime = parseInt(hours) * 60 + parseInt(minutes);
+                    const timeDiff = currentTime - medTime;
+                    
+                    // Check if we're within 15 minutes before scheduled time
+                    if (timeDiff >= -15 && timeDiff <= 0) {
+                        // Switch to 1-minute checks
+                        if (!medicationCheckInterval || medicationCheckInterval._idleTimeout !== 60000) {
+                            clearInterval(medicationCheckInterval);
+                            medicationCheckInterval = setInterval(checkMedications, 60 * 1000); // 1 minute
+                        }
+                    }
+                    
+                    // Check if medication is due
+                    const logEntry = todaySchedule.find(s => 
+                        s.medId === med.id && s.time === time && 
+                        new Date(s.date).toDateString() === now.toDateString()
+                    );
+                    
+                    if (!logEntry && timeDiff >= 0) {
+                        // Check notification settings
+                        const shouldNotify = (med.person === 'jpr' && notificationSettings.jprReminders) ||
+                                           (med.person === 'lmr' && notificationSettings.lmrReminders);
+                        
+                        if (shouldNotify) {
+                            // Send reminder at exact time, +10, +20, +30 minutes
+                            if (timeDiff === 0 || timeDiff === 10 || timeDiff === 20 || timeDiff === 30) {
+                                sendNotification(
+                                    'Medication Reminder',
+                                    `Time to take ${med.name} (${med.dosage}) - ${med.person.toUpperCase()}`
+                                );
+                            }
+                            
+                            // After 30 minutes, alert other user if configured
+                            if (timeDiff === 31) {
+                                const shouldAlertOther = (med.person === 'jpr' && notificationSettings.jprMissed) ||
+                                                        (med.person === 'lmr' && notificationSettings.lmrMissed);
+                                if (shouldAlertOther) {
+                                    sendNotification(
+                                        'Missed Medication Alert',
+                                        `${med.person.toUpperCase()} has not taken ${med.name} - scheduled for ${formatTime(time)}`
+                                    );
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        function sendNotification(title, body) {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification(title, {
+                    body: body,
+                    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23113F67" width="100%" height="100%"/><text y=".9em" font-size="90" fill="%23fff">+</text></svg>',
+                    requireInteraction: true
+                });
+            }
+        }
+
+        async function exportMedicationLog() {
+            const today = new Date();
+            const thirtyDaysAgo = new Date(today - 30 * 24 * 60 * 60 * 1000);
+            
+            const logs = todaySchedule.filter(log => new Date(log.date) >= thirtyDaysAgo);
+            
+            let csv = 'Date,Time,Person,Medication,Status,Reason\n';
+            logs.forEach(log => {
+                const med = medications.find(m => m.id === log.medId);
+                if (med) {
+                    const date = new Date(log.date).toLocaleDateString();
+                    csv += `${date},${log.time},${med.person.toUpperCase()},${med.name} ${med.dosage},${log.status},${log.reason || ''}\n`;
+                }
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `medication_log_${today.toISOString().slice(0, 10)}.csv`;
+            a.click();
+            
+            showToast('✓ Medication log exported!');
         }
 
         function showToast(message) {
